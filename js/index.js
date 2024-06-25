@@ -17,7 +17,7 @@ let tempMin3 = document.querySelector('.cr3 .details2 p');
 let day2 = document.querySelector('.c-parent2 .head');
 let day3 = document.querySelector('.c-parent3 .head');
 let input = document.querySelector('.banner .input input');
-let currentCountry ='';
+let currentCountry ="cairo";
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];    
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -56,12 +56,12 @@ async function getCity(lat, lon) {
 
 async function getWeather(City)
 {
-    try
-    {
-        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=d4730ca602c24ebb89e21055242506&q=${City}&days=7`);
+    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=d4730ca602c24ebb89e21055242506&q=${City}&days=7`);
 
+    if (response.status != 400 && response.ok) 
+    {
         const data = await response.json();
-    
+
 
         let tempData = data.forecast.forecastday[0].day.maxtemp_c;
         let tempData2 = data.forecast.forecastday[1].day.maxtemp_c;
@@ -116,12 +116,17 @@ async function getWeather(City)
         let dayName3 = daysOfWeek[dayOfWeek3];
         day3.innerHTML = dayName3;
         currentCountry = City;
+        console.log(currentCountry);
+
     }
-    catch (err) {
-        console.error('Error fetching IP information:', err);
+    else
+    {
+        console.log(currentCountry);
+        getWeather(currentCountry);
     }
 
 } 
 
-getWeather('cairo');
+getWeather(currentCountry);
 getCurrentLocation();
+
