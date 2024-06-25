@@ -56,7 +56,7 @@ async function getCity(lat, lon) {
 
 async function getWeather(City)
 {
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=d4730ca602c24ebb89e21055242506&q=${City}&days=7`);
+    const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=d4730ca602c24ebb89e21055242506&q=${City}&days=7`);
 
     if (response.status != 400 && response.ok) 
     {
